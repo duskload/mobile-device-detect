@@ -1,0 +1,29 @@
+{
+  "name": "mobile-device-detect",
+  "version": "0.1.0",
+  "description": "Helpers for handling mobile devices",
+  "main": "dist/index.js",
+  "typings": "./index.d.ts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/duskload/mobile-device-detect/"
+  },
+  "scripts": {
+    "start": "webpack --watch",
+    "build": "webpack"
+  },
+  "author": {
+    "name": "Michael Laktionov",
+    "email": "duskload@gmail.com"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "ua-parser-js": "^0.7.17",
+    "webpack": "^3.7.1"
+  }
+}
