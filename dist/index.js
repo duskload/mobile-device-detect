@@ -307,7 +307,7 @@ var engineName = getEngineName();
 var engineVersion = getEngineVersion();
 var getUA = getUseragent();
 
-var type = create.checkType(device.type);
+var type = checkType(device.type);
 
 exports.default = function () {
   var isBrowser = type.isBrowser,
@@ -318,27 +318,27 @@ exports.default = function () {
       isWearable = type.isWearable;
 
   if (isBrowser) {
-    return create.broPayload(isBrowser, browser, engine, os, ua);
+    return broPayload(isBrowser, browser, engine, os, ua);
   }
 
   if (isSmartTV) {
-    return create.stvPayload(isSmartTV, engine, os, ua);
+    return stvPayload(isSmartTV, engine, os, ua);
   }
 
   if (isConsole) {
-    return create.consolePayload(isConsole, engine, os, ua);
+    return consolePayload(isConsole, engine, os, ua);
   }
 
   if (isMobile) {
-    return create.mobilePayload(type, device, os, ua);
+    return mobilePayload(type, device, os, ua);
   }
 
   if (isTablet) {
-    return create.mobilePayload(type, device, os, ua);
+    return mobilePayload(type, device, os, ua);
   }
 
   if (isWearable) {
-    return create.wearPayload(isWearable, engine, os, ua);
+    return wearPayload(isWearable, engine, os, ua);
   }
 };
 
