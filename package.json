@@ -1,6 +1,6 @@
 {
   "name": "mobile-device-detect",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Helpers for handling mobile devices",
   "main": "dist/index.js",
   "typings": "./index.d.ts",
@@ -9,6 +9,20 @@
     "type": "git",
     "url": "https://github.com/duskload/mobile-device-detect/"
   },
+  "keywords": [
+    "useragent",
+    "mobile",
+    "phone",
+    "tablet",
+    "detect",
+    "device",
+    "browser",
+    "smart-tv",
+    "smarttv",
+    "version",
+    "model",
+    "console"
+  ],
   "scripts": {
     "start": "webpack --watch",
     "build": "webpack"
