@@ -14,10 +14,43 @@ or
 yarn add mobile-device-detect
 ```
 
+## Usage
+
+import any helper to your component, and use it as you needed.
+
+For example, in Vue.js:
+
+In script section:
+
+```html
+<script>
+import { isMobile } from 'mobile-device-detect';
+export default {
+  name: 'HelloWorld',
+  data () {
+    return {
+      msg: isMobile ? 'Welcome to Your Vue.js mobile App!' : 'Welcome to Your Vue.js App'
+    }
+  }
+}
+</script>
+
+```
+pass it to template: 
+
+```html
+<template>
+  <div class="hello">
+    {{ msg }}
+  </div>
+</template>
+```
+
+For react example, you can look into separated package [react-device-detect](https://github.com/duskload/react-device-detect)
 
 ### Selectors
 
-| prop               | type     | description                                                                            |
+| Property           | Return type     | Description                                                                            |
 | ------------------ | -------- | -------------------------------------------------------------------------------------- |
 | isMobile           | bool     | returns true if device type is `mobile` or `tablet`                                    |
 | isMobileOnly       | bool     | returns true if device type is `mobile`                                                |
