@@ -94,19 +94,38 @@ var engine = UA.getEngine();
 var os = UA.getOS();
 var ua = UA.getUA();
 
+var CHROME = BROWSER_TYPES.CHROME,
+    CHROMIUM = BROWSER_TYPES.CHROMIUM,
+    IE = BROWSER_TYPES.IE,
+    INTERNET_EXPLORER = BROWSER_TYPES.INTERNET_EXPLORER,
+    OPERA = BROWSER_TYPES.OPERA,
+    FIREFOX = BROWSER_TYPES.FIREFOX,
+    SAFARI = BROWSER_TYPES.SAFARI,
+    EDGE = BROWSER_TYPES.EDGE,
+    YANDEX = BROWSER_TYPES.YANDEX,
+    MOBILE_SAFARI = BROWSER_TYPES.MOBILE_SAFARI;
+var MOBILE = DEVICE_TYPES.MOBILE,
+    TABLET = DEVICE_TYPES.TABLET,
+    SMART_TV = DEVICE_TYPES.SMART_TV,
+    BROWSER = DEVICE_TYPES.BROWSER,
+    WEARABLE = DEVICE_TYPES.WEARABLE,
+    CONSOLE = DEVICE_TYPES.CONSOLE;
+var ANDROID = OS_TYPES.ANDROID,
+    WINDOWS_PHONE = OS_TYPES.WINDOWS_PHONE,
+    IOS = OS_TYPES.IOS;
 var checkType = exports.checkType = function checkType(type) {
   switch (type) {
-    case DEVICE_TYPES.MOBILE:
+    case MOBILE:
       return { isMobile: true };
-    case DEVICE_TYPES.TABLET:
+    case TABLET:
       return { isTablet: true };
-    case DEVICE_TYPES.SMART_TV:
+    case SMART_TV:
       return { isSmartTV: true };
-    case DEVICE_TYPES.CONSOLE:
+    case CONSOLE:
       return { isConsole: true };
-    case DEVICE_TYPES.WEARABLE:
+    case WEARABLE:
       return { isWearable: true };
-    case DEVICE_TYPES.BROWSER:
+    case BROWSER:
       return { isBrowser: true };
     default:
       return defaultData;
@@ -115,14 +134,14 @@ var checkType = exports.checkType = function checkType(type) {
 
 var getCurrentBrowser = exports.getCurrentBrowser = function getCurrentBrowser(name) {
   switch (name) {
-    case BROWSER_TYPES.CHROME:
-    case BROWSER_TYPES.FIREFOX:
-    case BROWSER_TYPES.OPERA:
-    case BROWSER_TYPES.YANDEX:
-    case BROWSER_TYPES.SAFARI:
-    case BROWSER_TYPES.IE:
-    case BROWSER_TYPES.EDGE:
-    case BROWSER_TYPES.CHROMIUM:
+    case CHROME:
+    case FIREFOX:
+    case OPERA:
+    case YANDEX:
+    case SAFARI:
+    case IE:
+    case EDGE:
+    case CHROMIUM:
       return true;
     default:
       return false;
@@ -187,16 +206,16 @@ var wearPayload = exports.wearPayload = function wearPayload(isWearable, engine,
 };
 
 var isMobileType = function isMobileType() {
-  return device.type === DEVICE_TYPES.MOBILE;
+  return device.type === MOBILE;
 };
 var isTabletType = function isTabletType() {
-  return device.type === DEVICE_TYPES.TABLET;
+  return device.type === TABLET;
 };
 
 var isMobileAndTabletType = function isMobileAndTabletType() {
   switch (device.type) {
-    case DEVICE_TYPES.MOBILE:
-    case DEVICE_TYPES.TABLET:
+    case MOBILE:
+    case TABLET:
       return true;
     default:
       return false;
@@ -204,48 +223,48 @@ var isMobileAndTabletType = function isMobileAndTabletType() {
 };
 
 var isSmartTVType = function isSmartTVType() {
-  return device.type === DEVICE_TYPES.SMART_TV;
+  return device.type === SMART_TV;
 };
 var isBrowserType = function isBrowserType() {
-  return device.type === DEVICE_TYPES.BROWSER;
+  return device.type === BROWSER;
 };
 var isWearableType = function isWearableType() {
-  return device.type === DEVICE_TYPES.WEARABLE;
+  return device.type === WEARABLE;
 };
 var isConsoleType = function isConsoleType() {
-  return device.type === DEVICE_TYPES.CONSOLE;
+  return device.type === CONSOLE;
 };
 var isAndroidType = function isAndroidType() {
-  return os.name === OS_TYPES.ANDROID;
+  return os.name === ANDROID;
 };
 var isWinPhoneType = function isWinPhoneType() {
-  return os.name === OS_TYPES.WINDOWS_PHONE;
+  return os.name === WINDOWS_PHONE;
 };
 var isIOSType = function isIOSType() {
-  return os.name === OS_TYPES.IOS;
+  return os.name === IOS;
 };
 var isChromeType = function isChromeType() {
-  return browser.name === BROWSER_TYPES.CHROME;
+  return browser.name === CHROME;
 };
 var isFirefoxType = function isFirefoxType() {
-  return browser.name === BROWSER_TYPES.FIREFOX;
+  return browser.name === FIREFOX;
 };
 var isChromiumType = function isChromiumType() {
-  return browser.name === BROWSER_TYPES.CHROMIUM;
+  return browser.name === CHROMIUM;
 };
 
 var isSafariType = function isSafariType() {
-  return browser.name === BROWSER_TYPES.SAFARI || browser.name === BROWSER_TYPES.MOBILE_SAFARI;
+  return browser.name === SAFARI || browser.name === MOBILE_SAFARI;
 };
 
 var isMobileSafariType = function isMobileSafariType() {
-  return browser.name === BROWSER_TYPES.MOBILE_SAFARI;
+  return browser.name === MOBILE_SAFARI;
 };
 var isOperaType = function isOperaType() {
-  return browser.name === BROWSER_TYPES.OPERA;
+  return browser.name === OPERA;
 };
 var isIEType = function isIEType() {
-  return browser.name === BROWSER_TYPES.INTERNET_EXPLORER;
+  return browser.name === INTERNET_EXPLORER || browser.name === IE;
 };
 
 var getBrowserFullVersion = function getBrowserFullVersion() {
