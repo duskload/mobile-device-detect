@@ -252,7 +252,12 @@ var isFirefoxType = function isFirefoxType() {
 var isChromiumType = function isChromiumType() {
   return browser.name === CHROMIUM;
 };
-
+var isEdgeType = function isEdgeType() {
+  return browser.name === EDGE;
+};
+var isYandexType = function isYandexType() {
+  return browser.name === YANDEX;
+};
 var isSafariType = function isSafariType() {
   return browser.name === SAFARI || browser.name === MOBILE_SAFARI;
 };
@@ -325,6 +330,8 @@ var mobileModel = getMobileModel();
 var engineName = getEngineName();
 var engineVersion = getEngineVersion();
 var getUA = getUseragent();
+var isEdge = isEdgeType();
+var isYandex = isYandexType();
 
 var type = checkType(device.type);
 
@@ -388,7 +395,9 @@ module.exports = {
   mobileModel: mobileModel,
   engineName: engineName,
   engineVersion: engineVersion,
-  getUA: getUA
+  getUA: getUA,
+  isEdge: isEdge,
+  isYandex: isYandex
 };
 
 /***/ }),

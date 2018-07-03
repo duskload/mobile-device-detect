@@ -146,7 +146,8 @@ const isIOSType = () => os.name === IOS;
 const isChromeType = () => browser.name === CHROME;
 const isFirefoxType = () => browser.name === FIREFOX;
 const isChromiumType = () => browser.name === CHROMIUM;
-
+const isEdgeType = () => browser.name === EDGE;
+const isYandexType = () => browser.name === YANDEX;
 const isSafariType = () =>
   browser.name === SAFARI || browser.name === MOBILE_SAFARI;
 
@@ -193,6 +194,8 @@ const mobileModel = getMobileModel();
 const engineName = getEngineName();
 const engineVersion = getEngineVersion();
 const getUA = getUseragent();
+const isEdge = isEdgeType();
+const isYandex = isYandexType();
 
 const type = checkType(device.type);
 
@@ -257,5 +260,7 @@ module.exports = {
   mobileModel,
   engineName,
   engineVersion,
-  getUA
+  getUA,
+  isEdge,
+  isYandex
 };

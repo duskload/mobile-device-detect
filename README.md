@@ -16,11 +16,7 @@ yarn add mobile-device-detect
 
 ## Usage
 
-import any helper to your component, and use it as you needed.
-
-For example, in Vue.js:
-
-In script section:
+Import any helper to your component, for example, in Vue.js:
 
 ```html
 <script>
@@ -68,6 +64,7 @@ For react example, you can look into separated package [react-device-detect](htt
 | isOpera            | bool     | returns true if browser is `Opera`                                                     |
 | isIE               | bool     | returns true if browser is `Internet Explorer`                                         |
 | isEdge             | bool     | returns true if browser is `Edge`                                                      |
+| isYandex           | bool     | returns true if browser is `Yandex`                                                      |
 | isChromium         | bool     | returns true if browser is `Chromium`                                                  |
 | isMobileSafari     | bool     | returns true if browser is `Mobile Safari`                                             |
 | osVersion          | string   | returns os version (e.g 7 for `Windows` or 6 for `Android`)                            |

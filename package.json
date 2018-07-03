@@ -1,6 +1,6 @@
 {
   "name": "mobile-device-detect",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Helpers for handling mobile devices",
   "main": "dist/index.js",
   "typings": "./index.d.ts",
