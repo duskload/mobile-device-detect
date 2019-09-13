@@ -28,4 +28,6 @@ declare module "mobile-device-detect" {
   export const engineName: string;
   export const engineVersion: string;
   export const getUA: string;
+  export const deviceType: string;
+  export function deviceDetect (): any;
 }

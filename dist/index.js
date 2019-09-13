@@ -71,10 +71,6 @@ module.exports =
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var UAParser = __webpack_require__(1);
@@ -88,7 +84,6 @@ var _require = __webpack_require__(3),
 var UA = new UAParser();
 
 var browser = UA.getBrowser();
-var cpu = UA.getCPU();
 var device = UA.getDevice();
 var engine = UA.getEngine();
 var os = UA.getOS();
@@ -113,7 +108,9 @@ var MOBILE = DEVICE_TYPES.MOBILE,
 var ANDROID = OS_TYPES.ANDROID,
     WINDOWS_PHONE = OS_TYPES.WINDOWS_PHONE,
     IOS = OS_TYPES.IOS;
-var checkType = exports.checkType = function checkType(type) {
+
+
+var checkType = function checkType(type) {
   switch (type) {
     case MOBILE:
       return { isMobile: true };
@@ -132,23 +129,7 @@ var checkType = exports.checkType = function checkType(type) {
   }
 };
 
-var getCurrentBrowser = exports.getCurrentBrowser = function getCurrentBrowser(name) {
-  switch (name) {
-    case CHROME:
-    case FIREFOX:
-    case OPERA:
-    case YANDEX:
-    case SAFARI:
-    case IE:
-    case EDGE:
-    case CHROMIUM:
-      return true;
-    default:
-      return false;
-  }
-};
-
-var broPayload = exports.broPayload = function broPayload(isBrowser, browser, engine, os, ua) {
+var broPayload = function broPayload(isBrowser, browser, engine, os, ua) {
   return {
     isBrowser: isBrowser,
     browserMajorVersion: browser.major,
@@ -162,7 +143,7 @@ var broPayload = exports.broPayload = function broPayload(isBrowser, browser, en
   };
 };
 
-var mobilePayload = exports.mobilePayload = function mobilePayload(type, device, os, ua) {
+var mobilePayload = function mobilePayload(type, device, os, ua) {
   return _extends({}, type, {
     vendor: device.vendor,
     model: device.model,
@@ -172,7 +153,7 @@ var mobilePayload = exports.mobilePayload = function mobilePayload(type, device,
   });
 };
 
-var stvPayload = exports.stvPayload = function stvPayload(isSmartTV, engine, os, ua) {
+var stvPayload = function stvPayload(isSmartTV, engine, os, ua) {
   return {
     isSmartTV: isSmartTV,
     engineName: engine.name,
@@ -183,7 +164,7 @@ var stvPayload = exports.stvPayload = function stvPayload(isSmartTV, engine, os,
   };
 };
 
-var consolePayload = exports.consolePayload = function consolePayload(isConsole, engine, os, ua) {
+var consolePayload = function consolePayload(isConsole, engine, os, ua) {
   return {
     isConsole: isConsole,
     engineName: engine.name,
@@ -194,7 +175,7 @@ var consolePayload = exports.consolePayload = function consolePayload(isConsole,
   };
 };
 
-var wearPayload = exports.wearPayload = function wearPayload(isWearable, engine, os, ua) {
+var wearPayload = function wearPayload(isWearable, engine, os, ua) {
   return {
     isWearable: isWearable,
     engineName: engine.name,
@@ -302,6 +283,9 @@ var getEngineVersion = function getEngineVersion() {
 var getUseragent = function getUseragent() {
   return ua;
 };
+var getDeviceType = function getDeviceType() {
+  return device.type;
+};
 
 var isSmartTV = isSmartTVType();
 var isConsole = isConsoleType();
@@ -332,10 +316,11 @@ var engineVersion = getEngineVersion();
 var getUA = getUseragent();
 var isEdge = isEdgeType();
 var isYandex = isYandexType();
+var deviceType = getDeviceType();
 
 var type = checkType(device.type);
 
-exports.default = function () {
+function deviceDetect() {
   var isBrowser = type.isBrowser,
       isMobile = type.isMobile,
       isTablet = type.isTablet,
@@ -369,6 +354,7 @@ exports.default = function () {
 };
 
 module.exports = {
+  deviceDetect: deviceDetect,
   isSmartTV: isSmartTV,
   isConsole: isConsole,
   isWearable: isWearable,
@@ -397,7 +383,8 @@ module.exports = {
   engineVersion: engineVersion,
   getUA: getUA,
   isEdge: isEdge,
-  isYandex: isYandex
+  isYandex: isYandex,
+  deviceType: deviceType
 };
 
 /***/ }),
