@@ -1,10 +1,10 @@
-const UAParser = require("../node_modules/ua-parser-js/dist/ua-parser.min");
+const UAParser = require("ua-parser-js/dist/ua-parser.min");
 const {
   BROWSER_TYPES,
   OS_TYPES,
   DEVICE_TYPES,
   defaultData
-} = require("./constants");
+} = require("./src/constants");
 
 const UA = new UAParser();
 
@@ -193,6 +193,7 @@ function deviceDetect () {
     isConsole,
     isWearable
   } = type;
+
   if (isBrowser) {
     return broPayload(isBrowser, browser, engine, os, ua);
   }
