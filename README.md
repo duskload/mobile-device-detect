@@ -77,6 +77,7 @@ For react example, you can look into separated package [react-device-detect](htt
 | engineName         | string   | returns browser engine `name` (e.g `Gecko` for FF or `WebKit` for Chrome)              |
 | engineVersion      | string   | returns engine version                                                                 |
 | getUA              | string   | returns user agent                                                                     |
+| deviceType         | string   | returns device type (e.g `mobile` or `tablet`)  |
 | deviceDetect       | function | return data object which includes all data about device (e.g version, engine, os etc.) |
 
 ## License

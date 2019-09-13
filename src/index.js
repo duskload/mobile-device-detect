@@ -9,7 +9,6 @@ const {
 const UA = new UAParser();
 
 const browser = UA.getBrowser();
-const cpu = UA.getCPU();
 const device = UA.getDevice();
 const engine = UA.getEngine();
 const os = UA.getOS();
@@ -30,7 +29,7 @@ const {
 const { MOBILE, TABLET, SMART_TV, BROWSER, WEARABLE, CONSOLE } = DEVICE_TYPES;
 const { ANDROID, WINDOWS_PHONE, IOS } = OS_TYPES;
 
-export const checkType = type => {
+const checkType = type => {
   switch (type) {
     case MOBILE:
       return { isMobile: true };
@@ -49,23 +48,7 @@ export const checkType = type => {
   }
 };
 
-export const getCurrentBrowser = name => {
-  switch (name) {
-    case CHROME:
-    case FIREFOX:
-    case OPERA:
-    case YANDEX:
-    case SAFARI:
-    case IE:
-    case EDGE:
-    case CHROMIUM:
-      return true;
-    default:
-      return false;
-  }
-};
-
-export const broPayload = (isBrowser, browser, engine, os, ua) => {
+const broPayload = (isBrowser, browser, engine, os, ua) => {
   return {
     isBrowser,
     browserMajorVersion: browser.major,
@@ -79,7 +62,7 @@ export const broPayload = (isBrowser, browser, engine, os, ua) => {
   };
 };
 
-export const mobilePayload = (type, device, os, ua) => {
+const mobilePayload = (type, device, os, ua) => {
   return {
     ...type,
     vendor: device.vendor,
@@ -90,7 +73,7 @@ export const mobilePayload = (type, device, os, ua) => {
   };
 };
 
-export const stvPayload = (isSmartTV, engine, os, ua) => {
+const stvPayload = (isSmartTV, engine, os, ua) => {
   return {
     isSmartTV,
     engineName: engine.name,
@@ -101,7 +84,7 @@ export const stvPayload = (isSmartTV, engine, os, ua) => {
   };
 };
 
-export const consolePayload = (isConsole, engine, os, ua) => {
+const consolePayload = (isConsole, engine, os, ua) => {
   return {
     isConsole,
     engineName: engine.name,
@@ -112,7 +95,7 @@ export const consolePayload = (isConsole, engine, os, ua) => {
   };
 };
 
-export const wearPayload = (isWearable, engine, os, ua) => {
+const wearPayload = (isWearable, engine, os, ua) => {
   return {
     isWearable,
     engineName: engine.name,
@@ -166,6 +149,7 @@ const getMobileModel = () => (device.model ? device.model : "none");
 const getEngineName = () => engine.name;
 const getEngineVersion = () => engine.version;
 const getUseragent = () => ua;
+const getDeviceType = () => device.type;
 
 const isSmartTV = isSmartTVType();
 const isConsole = isConsoleType();
@@ -196,10 +180,11 @@ const engineVersion = getEngineVersion();
 const getUA = getUseragent();
 const isEdge = isEdgeType();
 const isYandex = isYandexType();
+const deviceType = getDeviceType()
 
 const type = checkType(device.type);
 
-export default () => {
+function deviceDetect () {
   const {
     isBrowser,
     isMobile,
@@ -234,6 +219,7 @@ export default () => {
 };
 
 module.exports = {
+  deviceDetect,
   isSmartTV,
   isConsole,
   isWearable,
@@ -262,5 +248,6 @@ module.exports = {
   engineVersion,
   getUA,
   isEdge,
-  isYandex
+  isYandex,
+  deviceType
 };
