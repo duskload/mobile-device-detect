@@ -38,6 +38,6 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "ua-parser-js": "^0.7.17",
-    "webpack": "^3.7.1"
+    "webpack": "^4.42.0"
   }
 }
