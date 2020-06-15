@@ -63,7 +63,7 @@ For react example, you can look into separated package [react-device-detect](htt
 | isSafari           | bool     | returns true if browser is `Safari`                                                    |
 | isOpera            | bool     | returns true if browser is `Opera`                                                     |
 | isIE               | bool     | returns true if browser is `Internet Explorer`                                         |
-| isEdge             | bool     | returns true if browser is `Edge`                                                      |
+| isEdge             | bool     | returns true if browser is `Edge` or `Edge Chromium`                                                     |
 | isYandex           | bool     | returns true if browser is `Yandex`                                                      |
 | isChromium         | bool     | returns true if browser is `Chromium`                                                  |
 | isMobileSafari     | bool     | returns true if browser is `Mobile Safari`                                             |
@@ -78,6 +78,15 @@ For react example, you can look into separated package [react-device-detect](htt
 | engineVersion      | string   | returns engine version                                                                 |
 | getUA              | string   | returns user agent                                                                     |
 | deviceType         | string   | returns device type (e.g `mobile` or `tablet`)  |
+| isIOS13            | boolean  | returns true/false if device is running on iOS13                                       |
+| isIPhone13         | boolean  | returns true/false if device is iPhone and running on iOS13                            |
+| isIPad13           | boolean  | returns true/false if device is iPad and running on iOS13                              |
+| isIPod13           | boolean  | returns true/false if device is iPod and running on iOS13                              |
+| isElectron         | boolean  | returns true/false if running on `Electron`                                            |
+| isEdgeChromium     | boolean  | returns true/false if browser is `Edge Chromium`                                       | 
+| isLegacyEdge       | boolean  | returns true if browser is `Edge`                                                      |
+| isWindows          | boolean  | returns true/false if os is `Windows`                                                  |
+| isMacOs            | boolean  | returns true/false if os is `Mac OS`                                                   |
 | deviceDetect       | function | return data object which includes all data about device (e.g version, engine, os etc.) |
 
 ## License
