@@ -1,10 +1,15 @@
 const UAParser = require("../node_modules/ua-parser-js/dist/ua-parser.min");
+const { BROWSER_TYPES, OS_TYPES, DEVICE_TYPES } = require("./constants");
 const {
-  BROWSER_TYPES,
-  OS_TYPES,
-  DEVICE_TYPES,
-  defaultData
-} = require("./constants");
+  checkType,
+  broPayload,
+  mobilePayload,
+  wearPayload,
+  consolePayload,
+  stvPayload,
+  getNavigatorInstance,
+  isIOS13Check
+} = require("./utils")
 
 const UA = new UAParser();
 
@@ -27,84 +32,7 @@ const {
   MOBILE_SAFARI
 } = BROWSER_TYPES;
 const { MOBILE, TABLET, SMART_TV, BROWSER, WEARABLE, CONSOLE } = DEVICE_TYPES;
-const { ANDROID, WINDOWS_PHONE, IOS } = OS_TYPES;
-
-const checkType = type => {
-  switch (type) {
-    case MOBILE:
-      return { isMobile: true };
-    case TABLET:
-      return { isTablet: true };
-    case SMART_TV:
-      return { isSmartTV: true };
-    case CONSOLE:
-      return { isConsole: true };
-    case WEARABLE:
-      return { isWearable: true };
-    case BROWSER:
-      return { isBrowser: true };
-    default:
-      return defaultData;
-  }
-};
-
-const broPayload = (isBrowser, browser, engine, os, ua) => {
-  return {
-    isBrowser,
-    browserMajorVersion: browser.major,
-    browserFullVersion: browser.version,
-    browserName: browser.name,
-    engineName: engine.name || false,
-    engineVersion: engine.version,
-    osName: os.name,
-    osVersion: os.version,
-    userAgent: ua
-  };
-};
-
-const mobilePayload = (type, device, os, ua) => {
-  return {
-    ...type,
-    vendor: device.vendor,
-    model: device.model,
-    os: os.name,
-    osVersion: os.version,
-    ua: ua
-  };
-};
-
-const stvPayload = (isSmartTV, engine, os, ua) => {
-  return {
-    isSmartTV,
-    engineName: engine.name,
-    engineVersion: engine.version,
-    osName: os.name,
-    osVersion: os.version,
-    userAgent: ua
-  };
-};
-
-const consolePayload = (isConsole, engine, os, ua) => {
-  return {
-    isConsole,
-    engineName: engine.name,
-    engineVersion: engine.version,
-    osName: os.name,
-    osVersion: os.version,
-    userAgent: ua
-  };
-};
-
-const wearPayload = (isWearable, engine, os, ua) => {
-  return {
-    isWearable,
-    engineName: engine.name,
-    engineVersion: engine.version,
-    osName: os.name,
-    osVersion: os.version,
-    userAgent: ua
-  };
-};
+const { ANDROID, WINDOWS_PHONE, IOS, WINDOWS, MAC_OS } = OS_TYPES;
 
 const isMobileType = () => device.type === MOBILE;
 const isTabletType = () => device.type === TABLET;
@@ -119,11 +47,21 @@ const isMobileAndTabletType = () => {
   }
 };
 
+const isEdgeChromiumType = () => {
+  if (os.name === OS_TYPES.WINDOWS && os.version === '10') {
+    return typeof ua === 'string' && ua.indexOf('Edg/') !== -1;
+  }
+
+  return false;
+};
+
 const isSmartTVType = () => device.type === SMART_TV;
 const isBrowserType = () => device.type === BROWSER;
 const isWearableType = () => device.type === WEARABLE;
 const isConsoleType = () => device.type === CONSOLE;
 const isAndroidType = () => os.name === ANDROID;
+const isWindowsType = () => os.name === WINDOWS;
+const isMacOsType = () => os.name === MAC_OS;
 const isWinPhoneType = () => os.name === WINDOWS_PHONE;
 const isIOSType = () => os.name === IOS;
 const isChromeType = () => browser.name === CHROME;
@@ -138,6 +76,26 @@ const isMobileSafariType = () => browser.name === MOBILE_SAFARI;
 const isOperaType = () => browser.name === OPERA;
 const isIEType = () =>
   browser.name === INTERNET_EXPLORER || browser.name === IE;
+
+const isElectronType = () => {
+  const nav = getNavigatorInstance();
+  const ua = nav && nav.userAgent.toLowerCase();
+
+  return typeof ua === 'string' ? /electron/.test(ua) : false;
+};
+
+const getIOS13 = () => {
+  const nav = getNavigatorInstance();
+  return (
+    nav &&
+    (/iPad|iPhone|iPod/.test(nav.platform) || (nav.platform === 'MacIntel' && nav.maxTouchPoints > 1)) &&
+    !window.MSStream
+  );
+};
+
+const getIPad13 = () => isIOS13Check('iPad');
+const getIphone13 = () => isIOS13Check('iPhone');
+const getIPod13 = () => isIOS13Check('iPod');
 
 const getBrowserFullVersion = () => browser.major;
 const getBrowserVersion = () => browser.version;
@@ -154,15 +112,15 @@ const getDeviceType = () => device.type;
 const isSmartTV = isSmartTVType();
 const isConsole = isConsoleType();
 const isWearable = isWearableType();
-const isMobileSafari = isMobileSafariType();
+const isMobileSafari = isMobileSafariType() || getIPad13();
 const isChromium = isChromiumType();
-const isMobile = isMobileAndTabletType();
+const isMobile = isMobileAndTabletType() || getIPad13();
 const isMobileOnly = isMobileType();
-const isTablet = isTabletType();
+const isTablet = isTabletType() || getIPad13();
 const isBrowser = isBrowserType();
 const isAndroid = isAndroidType();
 const isWinPhone = isWinPhoneType();
-const isIOS = isIOSType();
+const isIOS = isIOSType() || getIPad13();
 const isChrome = isChromeType();
 const isFirefox = isFirefoxType();
 const isSafari = isSafariType();
@@ -178,9 +136,18 @@ const mobileModel = getMobileModel();
 const engineName = getEngineName();
 const engineVersion = getEngineVersion();
 const getUA = getUseragent();
-const isEdge = isEdgeType();
+const isEdge = isEdgeType() || isEdgeChromiumType();
 const isYandex = isYandexType();
-const deviceType = getDeviceType()
+const deviceType = getDeviceType();
+const isIOS13 = getIOS13();
+const isIPad13 = getIPad13();
+const isIPhone13 = getIphone13();
+const isIPod13 = getIPod13();
+const isElectron = isElectronType();
+const isEdgeChromium = isEdgeChromiumType();
+const isLegacyEdge = isEdgeType();
+const isWindows = isWindowsType();
+const isMacOs = isMacOsType();
 
 const type = checkType(device.type);
 
@@ -249,5 +216,14 @@ module.exports = {
   getUA,
   isEdge,
   isYandex,
-  deviceType
+  deviceType,
+  isIOS13,
+  isIPad13,
+  isIPhone13,
+  isIPod13,
+  isElectron,
+  isEdgeChromium,
+  isLegacyEdge,
+  isWindows,
+  isMacOs
 };

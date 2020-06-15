@@ -18,6 +18,15 @@ declare module "mobile-device-detect" {
   export const isIE: boolean;
   export const isEdge: boolean;
   export const isYandex: boolean;
+  export const isIOS13: boolean;
+  export const isIPad13: boolean;
+  export const isIPhone13: boolean;
+  export const isIPod13: boolean;
+  export const isElectron: boolean;
+  export const isEdgeChromium: boolean;
+  export const isLegacyEdge: boolean;
+  export const isWindows: boolean;
+  export const isMacOs: boolean;
   export const osVersion: string;
   export const osName: string;
   export const fullBrowserVersion: string;
