@@ -38,5 +38,9 @@ declare module "mobile-device-detect" {
   export const engineVersion: string;
   export const getUA: string;
   export const deviceType: string;
-  export function deviceDetect (): any;
+  export const isEmbedded: boolean;
+  export function deviceDetect (userAgent: string | undefined): any;
+  export function parseUserAgent (userAgent: string | undefined): any;
+  export function getSelectorsByUserAgent (userAgent: string | undefined): any;
+  export function setUserAgent (userAgent: string): any;
 }

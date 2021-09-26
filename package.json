@@ -1,8 +1,8 @@
 {
   "name": "mobile-device-detect",
-  "version": "0.4.3",
-  "description": "Helpers for handling mobile devices",
-  "main": "dist/index.js",
+  "version": "1.0.0",
+  "description": "Device type detection",
+  "main": "dist/lib.js",
   "typings": "./index.d.ts",
   "license": "MIT",
   "repository": {
@@ -21,23 +21,27 @@
     "smarttv",
     "version",
     "model",
-    "console"
+    "console",
+    "embedded",
+    "embed"
   ],
   "scripts": {
-    "start": "webpack --watch",
-    "build": "webpack"
+    "build": "rollup -c",
+    "prepare": "npm run build"
   },
   "author": {
     "name": "Michael Laktionov",
     "email": "duskload@gmail.com"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.6.0",
-    "ua-parser-js": "^0.7.17",
-    "webpack": "^3.7.1"
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.5.5",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.5",
+    "rollup": "^2.57.0"
+  },
+  "dependencies": {
+    "ua-parser-js": "^0.7.28"
   }
 }

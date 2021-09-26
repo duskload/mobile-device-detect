@@ -1,2 +1,12 @@
+# folder
 node_modules
+
+# ide
 .idea
+.vscode
+
+# build
+dist
+
+# other
+.DS_Store
