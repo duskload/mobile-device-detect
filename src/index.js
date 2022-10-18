@@ -79,7 +79,7 @@ const isIEType = () =>
 
 const isElectronType = () => {
   const nav = getNavigatorInstance();
-  const ua = nav && nav.userAgent.toLowerCase();
+  const ua = nav && nav.userAgent && nav.userAgent.toLowerCase();
 
   return typeof ua === 'string' ? /electron/.test(ua) : false;
 };
